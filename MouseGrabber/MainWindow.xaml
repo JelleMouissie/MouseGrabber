@@ -8,6 +8,13 @@
         mc:Ignorable="d"
         Deactivated="Window_Deactivated"
         Title="MainWindow" Height="450" Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}"
         AllowsTransparency="True" WindowStyle="None">
     <Window.Background>
         <SolidColorBrush Opacity="0" Color="White"/>
@@ -16,18 +23,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="500"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
 
+
         <!--<TextBox Grid.Row="1" Grid.Column="1"  Text="hoi"/>-->
-        <Image Grid.Row="1" Grid.Column="1" gif:ImageBehavior.AnimatedSource="gifs/gifWithoutBackground.gif"/>
-        <Button Content="Button" Click="Button_Click" HorizontalAlignment="Right" Height="75" Margin="0,0,175,175" VerticalAlignment="Bottom" Width="75" Grid.Column="1" Grid.Row="1"/>
+        <!--gif:ImageBehavior.AnimatedSource="gifs/clip1edited.gif" gif:ImageBehavior.AutoStart="False" gif:ImageBehavior.RepeatBehavior="1x"-->
 
-
-
+        <Image Panel.ZIndex="1" Grid.Row="1" Grid.Column="1" Name="gifPlayer" gif:ImageBehavior.AutoStart="False" gif:ImageBehavior.AnimationCompleted="gifPlayer_AnimationCompleted"/>
+        <Button Panel.ZIndex="0" Name="RedButton" HorizontalAlignment="Right" Height="50" Margin="0,0,310,350" VerticalAlignment="Bottom" Width="50" Grid.Column="1" Grid.Row="1"
+                Visibility="Collapsed" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+            <materialDesign:PackIcon Kind="AlertRhombusOutline" Height="35" Width="35"/>
+        </Button>
+        <Button Panel.ZIndex="2" Name="InvisibleButton" Click="Button_Click" HorizontalAlignment="Right" Height="50" Margin="0,0,310,350" VerticalAlignment="Bottom" Width="50" Grid.Column="1" Grid.Row="1"
+                Visibility="Collapsed" Background="Transparent" BorderThickness="0">
+        </Button>
+        
     </Grid>
 </Window>
+<!--<materialDesign:PackIcon Kind="Mouse" />
+<materialDesign:PackIcon Kind="CursorDefaultClick" />
+<materialDesign:PackIcon Kind="AlertCircleOutline" />-->
