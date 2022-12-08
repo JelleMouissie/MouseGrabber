@@ -1,0 +1,28 @@
+﻿<Window x:Class="MouseGrabber.PopUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MouseGrabber"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        AllowsTransparency="True" WindowStyle="None"
+        Title="PopUpWindow" Height="234.087" Width="463.027">
+    <Grid>
+        <Button Click="Button_Click" Content="Start" HorizontalAlignment="Left" Margin="48,184,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox Name="ForceAudio" Content="ForceAudio" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="48,116,0,0" TextWrapping="Wrap" Text="ticktimer" VerticalAlignment="Top"/>
+        <TextBox Name="TickTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="47" VerticalAlignment="Top" Width="120" Margin="48,137,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="233,116,0,0" TextWrapping="Wrap" Text="WaitTimer" VerticalAlignment="Top" Width="83"/>
+        <TextBox Name="WaitTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="120" Margin="233,137,0,0"/>
+        <TextBox x:Name="MouseTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="120" Margin="233,165,0,0"/>
+
+    </Grid>
+</Window>

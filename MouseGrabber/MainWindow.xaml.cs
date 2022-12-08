@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using WpfAnimatedGif;
 using System.Windows.Media.Animation;
+using System.Windows.Controls.Primitives;
 
 namespace MouseGrabber
 {
@@ -22,6 +23,11 @@ namespace MouseGrabber
 
         public int state = 0;
 
+        public bool ForceAudioValue;
+        public int TickTimerValue;
+        public int WaitTimerValue;
+        public int MouseTimerValue;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +36,35 @@ namespace MouseGrabber
 
             InitializeGifs();
 
+            GetGlobalInformation();
+
+            waitForMouseMove();
+
             StartClip1();
+        }
+
+        public void GetGlobalInformation()
+        {
+            PopUpWindow popup = new PopUpWindow();
+            if (popup.ShowDialog().Value)
+            {
+                ForceAudioValue = popup.ForceAudioValue ?? false;
+                bool waitParseSuccess = Int32.TryParse(popup.WaitTimerValue, out WaitTimerValue);
+                if (!waitParseSuccess)
+                {
+                    WaitTimerValue = 60;
+                }
+                bool timeParseSuccess = Int32.TryParse(popup.TickTimerValue, out TickTimerValue);
+                if (!timeParseSuccess)
+                {
+                    TickTimerValue = 47;
+                }
+                bool mouseParseSuccess = Int32.TryParse(popup.MouseTimerValue, out MouseTimerValue);
+                if (!mouseParseSuccess)
+                {
+                    MouseTimerValue = 3;
+                }
+            }
         }
 
         public void InitializeGifs()
@@ -134,7 +168,29 @@ namespace MouseGrabber
 
         private void waitForMouseMove()
         {
+            System.Threading.Thread.Sleep(WaitTimerValue * 1000);
 
+            int movedmouse = 0;
+
+            System.Drawing.Point lastPoint = new System.Drawing.Point(0, 0); 
+
+            while(movedmouse < 3)
+            {
+                System.Threading.Thread.Sleep(MouseTimerValue * 1000);
+
+                System.Drawing.Point newPoint;
+                GetCursorPos(out newPoint);
+
+                if (lastPoint.X != newPoint.X || lastPoint.Y != newPoint.Y)
+                {
+                    movedmouse++;
+                }
+                else
+                {
+                    movedmouse = 0;
+                }
+                lastPoint = newPoint;
+            }
         }
 
 
@@ -144,9 +200,8 @@ namespace MouseGrabber
 
             Timer timer = new Timer();
             timer.Tick += new EventHandler(SetMouseLocationEvent);
-            timer.Interval = 47;
+            timer.Interval = TickTimerValue;
             timer.Start();
-
         }
 
         int positionindex;
@@ -159,8 +214,6 @@ namespace MouseGrabber
             }
             (int, int) pos = recordedMousePositions[positionindex];
             positionindex += 1;
-
-            Debug.WriteLine(positionindex);
 
             SetCursorPos(pos.Item1, pos.Item2);
         }
