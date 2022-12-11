@@ -9,6 +9,9 @@ using System.Runtime.InteropServices;
 using WpfAnimatedGif;
 using System.Windows.Media.Animation;
 using System.Windows.Controls.Primitives;
+using System.IO;
+using System.Media;
+using System.Management;
 
 namespace MouseGrabber
 {
@@ -20,6 +23,9 @@ namespace MouseGrabber
         public BitmapImage clip1;
         public BitmapImage clip2;
         public BitmapImage clip3;
+
+        public SoundPlayer clip1SoundPlayer;
+        public SoundPlayer clip3SoundPlayer;
 
         public int state = 0;
 
@@ -35,10 +41,13 @@ namespace MouseGrabber
             this.ResizeMode = ResizeMode.NoResize;
 
             InitializeGifs();
+            InitializeSounds();
 
             GetGlobalInformation();
 
             waitForMouseMove();
+
+            //ForceAudio();
 
             StartClip1();
         }
@@ -85,9 +94,50 @@ namespace MouseGrabber
             clip3.EndInit();
         }
 
+        public void InitializeSounds()
+        {
+            string dir = Directory.GetCurrentDirectory();
+
+            clip1SoundPlayer = new SoundPlayer();
+            clip1SoundPlayer.SoundLocation = dir + "\\..\\..\\Sounds\\clip1Sound.wav";
+            clip1SoundPlayer.Load();
+
+            clip3SoundPlayer = new SoundPlayer();
+            clip3SoundPlayer.SoundLocation = dir + "\\..\\..\\Sounds\\clip3Sound.wav";
+            clip3SoundPlayer.Load();
+        }
+
+        public void ForceAudio()
+        {
+            
+
+            //USB\VID_0951&PID_16A4&MI_00\7&3321D09B&0&0000
+        }
+
+        public void FindAudioDevices()
+        {
+            ManagementObjectSearcher objSearcher = new ManagementObjectSearcher(
+           "SELECT * FROM Win32_SoundDevice");
+
+            ManagementObjectCollection objCollection = objSearcher.Get();
+
+            foreach (ManagementObject obj in objCollection)
+            {
+                Debug.WriteLine("-----------");
+                foreach (PropertyData property in obj.Properties)
+                {
+                    Debug.WriteLine(String.Format("{0}:{1}", property.Name, property.Value));
+                }
+            }
+        }
+
         public async void StartClip1()
         {
             state = 1;
+
+            clip1SoundPlayer.Play();
+
+            await Task.Delay(500);
 
             ImageBehavior.SetAnimatedSource(gifPlayer, clip1);
             ImageBehavior.SetAutoStart(gifPlayer, true);
@@ -108,16 +158,17 @@ namespace MouseGrabber
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Startclip3();
-            
+            Startclip3(); 
         }
 
         public async Task Startclip3()
         {
-            state = 3;
+            clip3SoundPlayer.Play();
 
             ImageBehavior.SetAnimatedSource(gifPlayer, clip3);
             ImageBehavior.SetRepeatBehavior(gifPlayer, new RepeatBehavior(1));
+
+            state = 3;
 
             //ImageBehavior.SetAnimationSpeedRatio(gifPlayer, 0.25);
 
@@ -134,8 +185,6 @@ namespace MouseGrabber
 
         public void ShutDown()
         {
-
-
             this.Close();
         }
 

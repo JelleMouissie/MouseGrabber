@@ -16,13 +16,15 @@
         AllowsTransparency="True" WindowStyle="None"
         Title="PopUpWindow" Height="234.087" Width="463.027">
     <Grid>
-        <Button Click="Button_Click" Content="Start" HorizontalAlignment="Left" Margin="48,184,0,0" VerticalAlignment="Top" Width="75"/>
-        <CheckBox Name="ForceAudio" Content="ForceAudio" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="48,116,0,0" TextWrapping="Wrap" Text="ticktimer" VerticalAlignment="Top"/>
-        <TextBox Name="TickTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="47" VerticalAlignment="Top" Width="120" Margin="48,137,0,0"/>
+        <Button Click="Button_Click" Content="Start" HorizontalAlignment="Left" Margin="103,167,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox Name="ForceAudio" Content="ForceAudio" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <TextBlock HorizontalAlignment="Left" Margin="88,104,0,0" TextWrapping="Wrap" Text="ticktimer" VerticalAlignment="Top"/>
+        <TextBox Name="TickTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="47" VerticalAlignment="Top" Width="120" Margin="88,125,0,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="233,116,0,0" TextWrapping="Wrap" Text="WaitTimer" VerticalAlignment="Top" Width="83"/>
-        <TextBox Name="WaitTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="120" Margin="233,137,0,0"/>
-        <TextBox x:Name="MouseTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="120" Margin="233,165,0,0"/>
+        <TextBox Name="WaitTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="120" Margin="233,132,0,0"/>
+        <TextBox x:Name="MouseTimer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="120" Margin="233,183,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="145,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Computer niet gelocke"/><Run Text="d"/><Run Text=".exe"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="233,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="16"><Run Text="MousePollInterval"/><LineBreak/><Run/></TextBlock>
 
     </Grid>
 </Window>
