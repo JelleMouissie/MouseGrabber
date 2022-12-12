@@ -12,6 +12,9 @@ using System.Windows.Controls.Primitives;
 using System.IO;
 using System.Media;
 using System.Management;
+using MouseGrabber.Properties;
+using System.Drawing;
+using System.Windows.Interop;
 
 namespace MouseGrabber
 {
@@ -37,13 +40,17 @@ namespace MouseGrabber
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
-            this.ResizeMode = ResizeMode.NoResize;
+
+            ShowOnMonitor(this);
 
             InitializeGifs();
             InitializeSounds();
 
             GetGlobalInformation();
+
+            this.WindowState = WindowState.Maximized;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.ShowInTaskbar = false;
 
             waitForMouseMove();
 
@@ -107,10 +114,25 @@ namespace MouseGrabber
             clip3SoundPlayer.Load();
         }
 
-        public void ForceAudio()
-        {
-            
+        #region https://social.msdn.microsoft.com/Forums/vstudio/en-US/2ca2fab6-b349-4c08-915f-373c71bd636a/show-and-maximize-wpf-window-on-a-specific-screen?forum=wpf
 
+        private void ShowOnMonitor(Window window)
+        {
+            Screen screen = Screen.PrimaryScreen;
+
+            window.WindowStyle = WindowStyle.None;
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            window.Left = screen.Bounds.Left;
+            window.Top = screen.Bounds.Top;
+            window.Show();
+            window.WindowState = WindowState.Maximized;
+        }
+
+        #endregion
+
+        public void ForceAudio()
+        { 
             //USB\VID_0951&PID_16A4&MI_00\7&3321D09B&0&0000
         }
 
@@ -185,7 +207,7 @@ namespace MouseGrabber
 
         public void ShutDown()
         {
-            this.Close();
+            Environment.Exit(0);
         }
 
         private void gifPlayer_AnimationCompleted(object sender, RoutedEventArgs e)
